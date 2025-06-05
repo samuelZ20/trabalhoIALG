@@ -12,6 +12,7 @@ struct filmes{
     string sinopse;
 }
 
+};
 
 
 int main (){
