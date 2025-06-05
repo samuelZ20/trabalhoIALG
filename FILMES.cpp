@@ -4,6 +4,14 @@
 #include <string>
 using namespace std;
 
+struct filmes{
+    int identificador;
+    string nome;
+    string diretor;
+    int ano;
+    string sinopse;
+}
+
 
 
 int main (){
