@@ -13,17 +13,15 @@ struct Filmes{
 };
 
 
-int contarlinhas(int n){
-    string linha;
+int contarlinhas(string linha){
     int cont = 0;
     ifstream arq("filmes.csv");
 
-    while(arq >> linha){
+    while(getline(arq, linha)){
         cont++;
     }
-    n = cont;
 
-    return n;
+    return cont;
 }
 
 int main (){
