@@ -12,6 +12,7 @@ struct Filmes{
     string sinopse;
 };
 
+
 int contarlinhas(int n){
     string linha;
     int cont = 0;
