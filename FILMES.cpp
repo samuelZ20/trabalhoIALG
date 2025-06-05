@@ -5,6 +5,7 @@
 using namespace std;
 
 struct Filmes{
+
     int identificador;
     string nome;
     string diretor;
@@ -12,7 +13,20 @@ struct Filmes{
     string sinopse;
 };
 
-void moldura(filmes f){
+void menuInicial() {
+    cout << "★══════════════════════════════════════════════════════════════════════★" << endl;
+    cout << "|                              MENU PRINCIPAL                           |" << endl;
+    cout << "├──────────────────────────────────────────────────────────────────────┤" << endl;
+    cout << "| 1 - Registrar novo filme                                             |" << endl;
+    cout << "| 2 - Importar/exportar                                                |" << endl;
+    cout << "| 3 - Remover dado existente                                           |" << endl;
+    cout << "| 4 - Buscar filme                                                     |" << endl;
+    cout << "| 5 - Mostrar todos os filmes na tela                                  |" << endl;
+    cout << "| 6 - Sair                                                             |" << endl;
+    cout << "★══════════════════════════════════════════════════════════════════════★" << endl;
+}
+
+void menuFilmes(Filmes f){
  cout << "★══════════════════════════════════════════════════════════════════════★"<< endl;
     cout << "|Filme: " << f.nome << endl ;
     cout << "|Diretor: " << f.diretor << endl;
@@ -33,7 +47,7 @@ int contarlinhas(string linha){
 }
 
 int main (){
-
+    
 
     return 0;
 }
