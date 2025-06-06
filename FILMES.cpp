@@ -4,50 +4,86 @@
 #include <string>
 using namespace std;
 
-struct Filmes{
+//ETAPA1 - Cada filme vai conter essas informações, permitindo que eu crie um vetor de filmes
+struct Filme{
 
-    int identificador;
+    int id;
     string nome;
     string diretor;
     int ano;
     string sinopse;
+
+    bool removido; //serve para marcar quando um registro foi removido, sem precisar apagar de verdade do vetor, tipo inves de tirar o filme do vetor, eu façõ : filme[3].removido=true;
 };
 
-void menuInicial() {
-    cout << "★══════════════════════════════════════════════════════════════════════★" << endl;
-    cout << "|                              MENU PRINCIPAL                           |" << endl;
-    cout << "├──────────────────────────────────────────────────────────────────────┤" << endl;
-    cout << "| 1 - Registrar novo filme                                             |" << endl;
-    cout << "| 2 - Importar/exportar                                                |" << endl;
-    cout << "| 3 - Remover dado existente                                           |" << endl;
-    cout << "| 4 - Buscar filme                                                     |" << endl;
-    cout << "| 5 - Mostrar todos os filmes na tela                                  |" << endl;
-    cout << "| 6 - Sair                                                             |" << endl;
-    cout << "★══════════════════════════════════════════════════════════════════════★" << endl;
-}
+//ETAPA2 - Criando um vetor dinamico com uma quantidade inicial de 40 filmes, caso exceda aumenta em 5 ou 10, controla quantos filmes estao cadastrados
+//Função para redimensionamento
+void redimensionar (Filme*& filmes, int& capacidade, int aumento){
+    int novaCapacidade = capacidade+aumento;
+    Filme* novoVetor = new Filme[novaCapacidade];
 
-void menuFilmes(Filmes f){
- cout << "★══════════════════════════════════════════════════════════════════════★"<< endl;
-    cout << "|Filme: " << f.nome << endl ;
-    cout << "|Diretor: " << f.diretor << endl;
-    cout << "|Ano do Oscar: " << f.ano << endl;
-    cout << "|Sinopse: " << f.sinopse << endl; 
-    cout << "★══════════════════════════════════════════════════════════════════════★" << endl;
-}
-
-int contarlinhas(string linha){
-    int cont = 0;
-    ifstream arq("filmes.csv");
-
-    while(getline(arq, linha)){
-        cont++;
+    for(int i=0; i<capacidade; i++){
+        novoVetor[i] = filmes[i];
     }
 
-    return cont;
+    delete[] filmes;
+    filmes = novoVetor;
+    capacidade = novaCapacidade;
 }
 
-int main (){
-    
+//ETAPA3 - Leitura do arquivo CSV e jogar as informacoes no vetor dinamico
+void importarCSV (Filme*& filmes, int& tamanho, int& capacidade, const string& nomeArquivo){
+    ifstream arquivo (nomeArquivo);
+    if(!arquivo.is_open()){
+        cout << "Erro ao abrir o arquivo " << nomeArquivo << endl;
+        return;
+    }
 
-    return 0;
+    string linha;
+    getline (arquivo, linha);
+
+    while(getline(arquivo, linha)){
+        if(tamanho == capacidade){
+            redimensionar(filmes, capacidade, 10);
+        }
+
+        stringstream ss(linha);
+        string campo;
+
+        getline(ss, campo, ',');
+        filmes[tamanho].id = stoi(campo);
+
+        getline(ss, filmes[tamanho].nome, ',');
+
+        getline(ss, filmes[tamanho].diretor, ',');
+
+        getline(ss,campo, ',' );
+        filmes[tamanho].ano = stoi(campo);
+
+        getline(ss,campo, ' " ');
+        getline (ss, filmes[tamanho].sinopse, '"');
+
+        filmes[tamanho].removido = false;
+        tamanho++;
+    }
+    arquivo.close();
+    cout << "Concluiu a importação! Filmes carregados: " << tamanho << endl;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+int main (){
+   
 }
