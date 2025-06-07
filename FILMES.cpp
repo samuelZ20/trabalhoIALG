@@ -4,8 +4,6 @@
 #include <string>
 using namespace std;
 
-const string nomearq = "Filmes.csv";
-
 struct Filmes{
 
     int identificador;
@@ -39,7 +37,7 @@ void menuFilmes(Filmes f){
 
 int contarlinhas(string linha){
     int cont = 0;
-    ifstream arq(nomearq);
+    ifstream arq("filmes.csv");
 
     while(getline(arq, linha)){
         cont++;
@@ -49,7 +47,6 @@ int contarlinhas(string linha){
 }
 
 int main (){
-    cout << menuInicial;
 
     return 0;
 }
